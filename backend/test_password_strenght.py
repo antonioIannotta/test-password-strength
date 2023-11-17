@@ -1,14 +1,18 @@
 import math
 import json
-import pandas as pd
+
 
 def length_score(password: str):
+    """
+    This method assigns a score based on the length of the provided password
+    :param password: the provided password
+    :return: the score based on the length of the password.
+    """
     min_len = 8
     max_len = 26
-    score = 0
 
     password_len = len(password)
-    
+
     if password_len == max_len:
         score = 10
     elif password_len == min_len:
@@ -18,7 +22,13 @@ def length_score(password: str):
 
     return score
 
+
 def special_symbols_score(password: str):
+    """
+    This method assigns a score based on the usage of special symbols
+    :param password: the provided password
+    :return: the score based on the usage of special symbols.
+    """
     special_symbols = '?,.-^!°§*[]/+<>'
     fold_10th = len(special_symbols) / 10
     score = 0
@@ -28,7 +38,15 @@ def special_symbols_score(password: str):
 
     return math.floor(score / len(special_symbols))
 
+
 def personal_information_score(password: str, personal_information: json):
+    """
+    This method assigns a score for the password provided based on the usage of either totality or partial part of
+    personal information in it.
+    :param password: the password of which compute the score
+    :param personal_information: the personal information
+    :return:
+    """
     name = str(personal_information['name'])
     surname = str(personal_information['surname'])
     date_of_birth = str(personal_information['date_of_birth'])
@@ -36,21 +54,14 @@ def personal_information_score(password: str, personal_information: json):
     place_of_birth = str(personal_information['place_of_birth']).replace(' ', '').replace('-', '').replace('\'', '')
 
     score = 0
-   
+
     score += _return_info_in_password(name, password)
     score += _return_info_in_password(surname, password)
     score += _return_info_in_password(favorite_music, password)
     score += _return_info_in_password(place_of_birth, password)
     score += _date_of_birth_in_password(date_of_birth, password)
 
-    return (10 - 2 * score)
-
-def Capital_letter_score(password: str):
-    score = 0
-    for letter in password:
-        if letter.isupper():
-            return 10
-    return score
+    return 10 - 2 * score
 
 
 def _return_info_in_password(info: str, password: str):
@@ -60,7 +71,6 @@ def _return_info_in_password(info: str, password: str):
         return 1
 
     return score
-
 
 
 def _date_of_birth_in_password(date_of_birth: str, password: str):
@@ -94,18 +104,13 @@ def _date_of_birth_in_password(date_of_birth: str, password: str):
         else:
             score = 0
 
-    
     if year in lower_password or year[2:] in lower_password or year[::-1] in lower_password:
         return 1
     else:
         score = 0
-    
+
     return score
 
 
 if __name__ == '__main__':
     pass
-
-
-
-    
