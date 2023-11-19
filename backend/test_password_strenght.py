@@ -85,31 +85,21 @@ def _date_of_birth_in_password(date_of_birth: str, password: str):
     if 1 <= int(day) <= 9:
         if day in lower_password:
             return 1
-        else:
-            score = 0
     else:
         if day in lower_password or day[::-1] in lower_password:
             return 1
-        else:
-            score = 0
 
     if 1 <= int(month) <= 9:
         if month in lower_password:
             return 1
-        else:
-            score = 0
     else:
         if month in lower_password or month[::-1] in lower_password:
             return 1
-        else:
-            score = 0
 
     if year in lower_password or year[2:] in lower_password or year[::-1] in lower_password:
         return 1
-    else:
-        score = 0
 
-    return score
+    return 0
 
 
 if __name__ == '__main__':
