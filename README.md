@@ -10,4 +10,4 @@ cd test-password-strength
 
 python3 test-password-strength.py
 
-<!-- end:code block -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
